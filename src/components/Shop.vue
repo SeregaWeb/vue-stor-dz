@@ -1,28 +1,64 @@
 <template>
  <div>
-   <navigation></navigation>
-   <shop-item :data="StorArr" @remove="removeFromList"></shop-item>
+   <navigation :count="basketCount"></navigation>
+   <shop-item :data="StorArr" @addItem="addFromBasket"></shop-item>
  </div>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation'
 import ShopItem from '@/components/Shop_item'
+import Stor from '@/store'
 
 export default {
   name: 'Shop',
   components: { Navigation, ShopItem },
   data: function () {
     return {
-      StorArr: [
-        {name: 'item1', price: 22.5},
-        {name: 'item2', price: 23.5},
-        {name: 'item3', price: 24.5}]
+      StorArr: Stor,
+      basket: JSON.parse(localStorage.shopVue || '[]')
     }
   },
   methods: {
-    removeFromList (id) {
-      console.log(id)
+    saveBasket () {
+      localStorage.shopVue = JSON.stringify(this.basket)
+    },
+    addFromBasket (id) {
+      var fl = false
+      for (var i = 0; i < this.basket.length; i++) {
+        if (id === this.basket[i].id) {
+          fl = true
+        }
+      }
+      if (fl === false) {
+        var newItem = {
+          name: this.StorArr[id].name,
+          price: this.StorArr[id].price,
+          id: id,
+          count: 1
+        }
+        this.basket.push(newItem)
+      } else {
+        let count = this.basket[id].count
+        count++
+        this.$set(this.basket[id], 'count', count)
+        this.saveBasket()
+      }
+      console.log(this.basket)
+    }
+  },
+  computed: {
+    basketCount: function () {
+      var countB = 0
+      this.basket.forEach(function (value) {
+        countB += value.count
+      })
+      return countB
+    }
+  },
+  watch: {
+    basket: function () {
+      this.saveBasket()
     }
   }
 }

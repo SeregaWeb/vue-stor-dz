@@ -3,7 +3,7 @@
         <li v-for="(item, key) in data" :key="key">
             <span>{{key}}:код товара</span><p>{{item.name}}</p>
             <p>{{item.price}}</p>
-            <button type="button" @click="removeItem(key)">Add basket</button>
+            <button type="button" @click="addItem(key)">Add basket</button>
         </li>
     </ul>
 </template>
@@ -13,9 +13,8 @@ export default {
   name: 'Shop-item',
   props: ['data'],
   methods: {
-    removeItem: function (key) {
-      console.log(key)
-      this.$emit('remove', key)
+    addItem: function (key) {
+      this.$emit('addItem', key)
     }
   }
 }

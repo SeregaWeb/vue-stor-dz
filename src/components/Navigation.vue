@@ -5,7 +5,7 @@
             <router-link to="/">shop</router-link>
           </li>
           <li >
-            <router-link to="/basket">basket</router-link>
+            <router-link to="/basket">basket <span class="count-basket">{{count}}</span></router-link>
           </li>
       </ul>
   </nav>
@@ -13,7 +13,8 @@
 
 <script>
 export default {
-  name: 'Navigation'
+  name: 'Navigation',
+  props: ['count']
 }
 </script>
 
@@ -27,5 +28,22 @@ export default {
     }
     li{
         margin: 0 20px;
+        position: relative;
+    }
+    .count-basket{
+        position: absolute;
+        right: -35px;
+        width: 25px;
+        height: 25px;
+        top: -5px;
+        background-color: blue;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        font-size: 12px;
+        align-items: center;
+        font-weight: 900;
+        font-family: monospace;
     }
 </style>
