@@ -32,7 +32,7 @@ ul {
 li {
   margin: 0 10px;
   padding: 5px;
-  border: 1px solid #f3f3f3;
+  border: 1px solid #909090;
 }
 a {
   color: #42b983;

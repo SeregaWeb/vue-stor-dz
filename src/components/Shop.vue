@@ -1,6 +1,6 @@
 <template>
  <div>
-   <navigation :count="basketCount"></navigation>
+   <navigation></navigation>
    <shop-item :data="StorArr" @addItem="addFromBasket"></shop-item>
  </div>
 </template>
@@ -15,8 +15,8 @@ export default {
   components: { Navigation, ShopItem },
   data: function () {
     return {
-      StorArr: Stor,
-      basket: JSON.parse(localStorage.shopVue || '[]')
+      StorArr: Stor.ShopItems,
+      basket: Stor.Basket
     }
   },
   methods: {
@@ -44,16 +44,6 @@ export default {
         this.$set(this.basket[id], 'count', count)
         this.saveBasket()
       }
-      console.log(this.basket)
-    }
-  },
-  computed: {
-    basketCount: function () {
-      var countB = 0
-      this.basket.forEach(function (value) {
-        countB += value.count
-      })
-      return countB
     }
   },
   watch: {

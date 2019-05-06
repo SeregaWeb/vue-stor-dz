@@ -5,16 +5,23 @@
             <router-link to="/">shop</router-link>
           </li>
           <li >
-            <router-link to="/basket">basket <span class="count-basket">{{count}}</span></router-link>
+            <router-link to="/basket">basket <span class="count-basket">{{countBasketStor}}</span></router-link>
           </li>
       </ul>
   </nav>
 </template>
 
 <script>
+import Stor from '@/store'
+
 export default {
   name: 'Navigation',
-  props: ['count']
+  computed: {
+    countBasketStor () {
+      Stor.basketCount()
+      return Stor.CountBasket
+    }
+  }
 }
 </script>
 
